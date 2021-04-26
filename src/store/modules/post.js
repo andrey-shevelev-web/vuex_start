@@ -1,11 +1,11 @@
 export default {
   actions: {
-    async fetchPosts(ctx, limit = 5) {
+    async fetchPosts({ commit }, limit = 5) {
       const response = await fetch(
         `https://jsonplaceholder.typicode.com/posts?_limit=${limit}`
       )
       const resPosts = await response.json()
-      ctx.commit('updatePosts', resPosts)
+      commit('updatePosts', resPosts)
     },
   },
 
@@ -24,12 +24,18 @@ export default {
   },
 
   getters: {
+    validPosts(state) {
+      return state.posts.filter(item => {
+        return item.title && item.body
+      })
+    },
+
     allPosts(state) {
       return state.posts
     },
 
-    postsCount(state) {
-      return state.posts.length
+    postsCount(state, getters) {
+      return getters.validPosts.length
     },
   },
 }

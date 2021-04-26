@@ -4,7 +4,7 @@
     <h1>Simple vuex app</h1>
     <PostForm />
     <h2>Count of posts: {{ postsCount }}</h2>
-    <div class="post" v-for="post of allPosts" :key="post.id">
+    <div class="post" v-for="post of validPosts" :key="post.id">
       <h2>{{ post.title }}</h2>
       <p>{{ post.body }}</p>
     </div>
@@ -18,7 +18,7 @@ import PostForm from '@/components/PostForm'
 export default {
   name: 'App',
 
-  computed: mapGetters(['allPosts', 'postsCount']),
+  computed: mapGetters(['validPosts', 'postsCount']),
 
   methods: mapActions(['fetchPosts']),
 
